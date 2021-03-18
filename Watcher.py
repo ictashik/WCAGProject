@@ -5,16 +5,16 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 def on_created(event):
-    print("created")
+    print("Created New File - %s." % event.src_path)
 
 def on_deleted(event):
-    print("deleted")
+    print("Deleted File - %s." % event.src_path)
 
 def on_modified(event):
-    print("modified")
+    print("Modified File - %s." % event.src_path)
 
 def on_moved(event):
-    print("moved")
+    print("Moved File - %s." % event.src_path)
 
 if __name__ == "__main__":
     event_handler = FileSystemEventHandler()
@@ -23,7 +23,7 @@ if __name__ == "__main__":
     event_handler.on_deleted = on_deleted
     event_handler.on_modified = on_modified
     event_handler.on_moved = on_moved
-    path="D:/server/www/test_folder"
+    path="H:\Templates\Inspinia"
     observer = Observer()
     observer.schedule(event_handler, path, recursive=True)
     observer.start()
