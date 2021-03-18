@@ -1,6 +1,7 @@
 import sys
 import time
 import logging
+import time
 from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 
@@ -31,6 +32,7 @@ if __name__ == "__main__":
     observer = Observer()
     observer.schedule(event_handler, path, recursive=True)
     observer.start()
+
     try:
         print("Monitoring")
         while True:
