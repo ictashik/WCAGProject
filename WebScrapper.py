@@ -2,7 +2,12 @@ from bs4 import BeautifulSoup
 import urllib.request
 import re
 
-html_page = urllib.request.urlopen("https://arstechnica.com")
+print('Sample Web Scrapper')
+
+urlinput = input()
+
+
+html_page = urllib.request.urlopen(urlinput)
 soup = BeautifulSoup(html_page)
 links = []
 
