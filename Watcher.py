@@ -22,8 +22,7 @@ if __name__ == "__main__":
     ignore_directories = False
     case_sensitive = True
     event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, ignore_directories, case_sensitive)
-    #event_handler = FileSystemEventHandler()
-    # calling functions
+    
     event_handler.on_created = on_created
     event_handler.on_deleted = on_deleted
     event_handler.on_modified = on_modified

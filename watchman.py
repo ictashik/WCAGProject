@@ -5,7 +5,6 @@ from watchdog.events import PatternMatchingEventHandler
 
 
 if __name__ == "__main__":
-    print("Hello Meri")
     patterns = "*"
     ignore_patterns = ""
     ignore_directories = False
