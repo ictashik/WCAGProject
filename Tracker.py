@@ -1,23 +1,12 @@
-import json, subprocess
-from argparse import ArgumentParser
-from os import walk
-from os.path import join, getsize
-from datetime import datetime
+import time
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
 
-parser = ArgumentParser(description="Tracks any changes in a specified directory. Additions, deletions,\n \
-                                     changes of files and subdirs are tracked and recorded in a log file.\n \
-                                     If user-defined thresholds are exceeded an alert is also created.\n")
-parser.add_argument("-d","--dir", dest="dir", required=True, help="The directory monitored (required parameter)")
-parser.add_argument("-s","--sizeabs", dest="size_abs", default=30, type=float, help="Number of MB of change in size to trigger an alert (default=30)")
-parser.add_argument("-r","--sizerel", dest="size_rel", default=0.05, type=float, help="Fraction of change in size to trigger an alert (default=0.05)")
-parser.add_argument("-n","--numabs", dest="num_abs", default=50, type=int, help="Number files+dirs that need to be added/deleted to trigger an alert (default=50)")
-parser.add_argument("-q","--numrel", dest="num_rel", default=0.05, type=float, help="Fraction of files+dirs that need to be added/deleted to trigger an alert (default=0.05)")
-parser.add_argument("-l","--logdir", dest="log_dir", default="logs/", help="The directory where log files and status information is kept (default logs/)")
-parser.add_argument("--schedule", dest="daySchedule", default="",  help="Defines a series of times to run the script. The argument is a continuous string with no spaces, and times are comma-separated given in this form:  HH:MM,HH:MM,.. (NOT currently implemented)")
-parser.add_argument("--persistentAlert", action='store_true',  help="If this flag is set then the alert to the user is a foreground window that requires pressing OK to dismiss")
 
-args = parser.parse_args()
+class Watcher:
+    DIRECTORY_TO_WATCH = "/path/to/my/directory"
 
+<<<<<<< HEAD
 '''
 In order to find all the changes done to a folder we have to keep a detailed snapshop of the folder structure.
 This means we need to know all directories and files the main directory contains (along with individual item sizes)
@@ -290,18 +279,41 @@ class Tracker:
             num /= 1024.0
         # if the num is bigger than 1024 after all divisions, just use the larger unit
         return '{.3f} GB'.format(num)
+=======
+    def __init__(self):
+        self.observer = Observer()
+
+    def run(self):
+        event_handler = Handler()
+        self.observer.schedule(event_handler, self.DIRECTORY_TO_WATCH, recursive=True)
+        self.observer.start()
+        try:
+            while True:
+                time.sleep(5)
+        except:
+            self.observer.stop()
+            print "Error"
+
+        self.observer.join()
+>>>>>>> 5564c82963ec9e056061438945ac09bb90e1ce3c
 
 
+class Handler(FileSystemEventHandler):
 
-def singleRun(root, log_dir, size_abs, size_rel, num_abs, num_rel, persistentAlert):
+    @staticmethod
+    def on_any_event(event):
+        if event.is_directory:
+            return None
 
-    t = Tracker(root, log_dir)
-    t.findChanges()
-    t.writeChanges()
-    t.writeCurrentState()
-    t.alertUser(size_abs, size_rel, num_abs, num_rel, persistentAlert)
+        elif event.event_type == 'created':
+            # Take any action here when a file is first created.
+            print "Received created event - %s." % event.src_path
 
+        elif event.event_type == 'modified':
+            # Taken any action here when a file is modified.
+            print "Received modified event - %s." % event.src_path
 
+<<<<<<< HEAD
 def main_loop():
     singleRun(args.dir, args.log_dir, args.size_abs *1024*1024, args.size_rel, args.num_abs, args.num_rel, args.persistentAlert)
     # There are provisions to include multiple scheduled runs in the future, hence the parameter --schedule.
@@ -309,3 +321,9 @@ def main_loop():
 
 if __name__ == '__main__':
      main_loop()
+=======
+
+if __name__ == '__main__':
+    w = Watcher()
+    w.run()
+>>>>>>> 5564c82963ec9e056061438945ac09bb90e1ce3c
