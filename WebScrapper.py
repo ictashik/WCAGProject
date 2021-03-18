@@ -14,4 +14,5 @@ links = []
 for link in soup.findAll('a', attrs={'href': re.compile("^http://")}):
     links.append(link.get('href'))
 
-print(links)
+for a in range(len(links)):
+    print(links[a])
