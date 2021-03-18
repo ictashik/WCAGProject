@@ -2,7 +2,7 @@ import sys
 import time
 import logging
 from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
+from watchdog.events import PatternMatchingEventHandler
 
 def on_created(event):
     print("Created New File - %s." % event.src_path)
@@ -17,7 +17,12 @@ def on_moved(event):
     print("Moved File - %s." % event.src_path)
 
 if __name__ == "__main__":
-    event_handler = FileSystemEventHandler()
+    patterns = ["*.html","*.htm","*.css"]
+    ignore_patterns = ""
+    ignore_directories = False
+    case_sensitive = True
+    event_handler = PatternMatchingEventHandler(patterns, ignore_patterns, ignore_directories, case_sensitive)
+    #event_handler = FileSystemEventHandler()
     # calling functions
     event_handler.on_created = on_created
     event_handler.on_deleted = on_deleted
