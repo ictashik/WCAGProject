@@ -12,6 +12,3 @@ print(dataset.head(20))
 print(dataset.describe())
 # class distribution
 print(dataset.groupby('class').size())
-
-dataset.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False)
-pyplot.show()
