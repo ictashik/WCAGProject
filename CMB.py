@@ -56,4 +56,11 @@ for each in rd:
     print(i,end = "\t\t")
 
 
-print((automated_accessibility_testing.check_accessibility(text)))
+print("\n------------------------------------------------------------------------------------------\n")
+
+aat_res = automated_accessibility_testing.check_accessibility(text)
+print("Accessibility Exceptions: ", len(aat_res))
+
+for x in range(0,len(aat_res)-1):
+    print(aat_res[x],end="\n")
+    
