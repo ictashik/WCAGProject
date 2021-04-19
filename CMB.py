@@ -3,6 +3,7 @@ from wcag_zoo.validators.ayeaye import Ayeaye
 from wcag_zoo.validators.glowworm import Glowworm
 from wcag_zoo.validators.molerat import Molerat
 from wcag_zoo.validators.anteater import Anteater
+import automated_accessibility_testing
 
 filename ="colortest.html"
 
@@ -53,3 +54,6 @@ for each in rd:
         if len(item) > 0:
             i =i +1
     print(i,end = "\t\t")
+
+
+print((automated_accessibility_testing.check_accessibility(text)))
