@@ -63,4 +63,3 @@ print("Accessibility Exceptions: ", len(aat_res))
 
 for x in range(0,len(aat_res)-1):
     print(aat_res[x],end="\n")
-    
